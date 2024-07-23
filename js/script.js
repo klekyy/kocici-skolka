@@ -25,25 +25,6 @@ for(let oneHref of mobileHref){
   })
 }
 
-
-function reveal() {
-  let reveals = document.querySelectorAll(".reveal");
-
-  for (let i = 0; i < reveals.length; i++) {
-    let windowHeight = window.innerHeight;
-    let elementTop = reveals[i].getBoundingClientRect().top;
-    let elementVisible = 80;
-
-    if (elementTop < windowHeight - elementVisible) {
-      reveals[i].classList.add("active");
-    } else {
-      reveals[i].classList.remove("active");
-    }
-  }
-}
-
-window.addEventListener("scroll", reveal);
-
 // Slider
 
 let slideIndex = 1;
@@ -65,30 +46,115 @@ function showDivs(n) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  const cookiesBar = document.getElementById('cookies-bar');
-  const acceptCookiesBtn = document.getElementById('accept-cookies-btn');
-  const refuseCookiesBtn = document.getElementById('refuse-cookies-btn');
+// Cookies
 
-  // Check if cookies have been accepted
-  const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+document.addEventListener('DOMContentLoaded', function () {
+  const banner = document.getElementById('cookie-banner');
+  const acceptButton = document.getElementById('accept-cookies');
+  const rejectButton = document.getElementById('reject-cookies');
 
-  if (!cookiesAccepted) {
-      // Show cookies bar if not accepted
-      cookiesBar.style.display = 'block';
+  // Check if the user has already made a choice
+  if (!getCookie('cookie-consent')) {
+      banner.style.display = 'block';
   }
 
-  // Handle accept cookies button click
-  acceptCookiesBtn.addEventListener('click', function() {
-      // Set cookiesAccepted to true in local storage
-      localStorage.setItem('cookiesAccepted', true);
-      
-      // Hide cookies bar
-      cookiesBar.style.display = 'none';
+  acceptButton.addEventListener('click', function () {
+      setCookie('cookie-consent', 'accepted', 365);
+      banner.style.display = 'none';
   });
 
-  // Handle refuse cookies button click
-  refuseCookiesBtn.addEventListener('click', function() {
-      cookiesBar.style.display = 'none';
-    });
+  rejectButton.addEventListener('click', function () {
+      setCookie('cookie-consent', 'rejected', 365);
+      banner.style.display = 'none';
+  });
+
+  function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + value + ";" + expires + ";path=/";
+  }
+
+  function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+  }
 });
+
+// GSAP Animations
+
+gsap.registerPlugin(ScrollTrigger)
+
+let headings2 = gsap.utils.toArray("h2")
+
+gsap.from("li", { 
+  scrollTrigger: "li",
+  duration: 1, 
+  x: -100, 
+  stagger: 0.2, 
+  opacity: 0, 
+  delay: 1 
+});
+
+
+gsap.from("h1", { 
+  scrollTrigger: "h1",
+  duration: 1, 
+  opacity: 0, 
+  y: -100, 
+  delay: 2 
+});
+
+gsap.from(".fb-mail", { 
+  scrollTrigger: ".fb-mail",
+  duration: 0.5, 
+  x: 10, 
+  repeat: 6, 
+  yoyo: true 
+});
+
+gsap.from(".qr-div", {
+  scrollTrigger: ".qr-div",
+  duration: 1, 
+  scale: 0 
+});
+
+headings2.forEach((heading2) => {
+  
+  gsap.from(heading2, { autoAlpha: 0,
+    scrollTrigger: heading2,
+    duration: 1,
+    x: -300,
+    opacity: 0
+});
+  
+})
+
+
+gsap.from(".right-content img", { 
+  scrollTrigger: ".right-content img",
+  duration: 2, 
+  opacity: 0 
+});
+
+
+ScrollTrigger.create({
+  trigger: ".pin-section",
+  pin: true,
+  start: "top top",
+  end: "+=500"
+});
+
+
+
+
+
+
+
+
