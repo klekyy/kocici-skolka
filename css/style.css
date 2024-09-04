@@ -705,6 +705,30 @@ footer>* {
     background: #131923;
 }
 
+/* Scroll bar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--button-color); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #252525; 
+    transition: all .5s;
+  }
+
 /* Media queries */
 
 @media (hover: hover) {
