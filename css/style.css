@@ -410,7 +410,7 @@ button#mobile-menu.close .bar:last-child {
 
 .cat-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(342px, 1fr));
     gap: 1rem;
     padding-inline: 1rem;
 }
