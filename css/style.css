@@ -96,6 +96,12 @@ html {
 
 /* Headings */
 
+.headings {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: .5rem;
+}
+
 h1 {
     font-size: clamp(2.5rem, 2.2692rem + 1.1538vw, 4rem);
     line-height: 1;
@@ -105,6 +111,10 @@ h1 {
 h2 {
     color: var(--text-color);
     font-size: clamp(1.8rem, 1.7231rem + 0.3846vw, 2.3rem);
+}
+
+.headings h3 {
+    font-weight: 300;
 }
 
 #how-to-help .h3 {
